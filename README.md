@@ -1,4 +1,3 @@
-```markdown
 # HireWise AI – Recruitment Assistant
 
 An end-to-end AI-powered recruitment pipeline that automates resume screening, candidate scoring, shortlisting, and interview scheduling.
