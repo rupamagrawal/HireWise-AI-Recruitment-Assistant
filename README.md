@@ -13,27 +13,27 @@ HireWise AI reads PDF resumes and job descriptions, uses a local LLM (Ollama) to
 HireWise-AI-Recruitment-Assistant/
 │
 ├── data/
-│   ├── resumes/                  # Input resume PDFs
-│   └── job_descriptions.csv      # Input job descriptions
+│   ├── resumes/                    # Input resume PDFs
+│   └── job_descriptions.csv        # Input job descriptions
 │
 ├── parsed_data/
-│   ├── parsed_resumes.json       # Extracted resume text
-│   └── parsed_jobs.json          # Structured job data
+│   ├── parsed_resumes.json         # Extracted resume text
+│   └── parsed_jobs.json            # Structured job data
 │
 ├── output/
-│   ├── match_results.csv         # All candidate-job scores
-│   └── shortlisted_candidates.csv
+│   ├── match_results.csv           # All candidate-job scores
+│   └── shortlisted_candidates.csv  # Shortlisted candidates
 │
 ├── scripts/
-│   ├── extract_pdfs.py           # PDF text extraction
-│   ├── load_jobs.py              # Job description processing
-│   └── run_matching.py           # LLM-based scoring logic
+│   ├── extract_pdfs.py             # PDF text extraction
+│   ├── load_jobs.py                # Job description processing
+│   └── run_matching.py             # LLM-based scoring logic
 │
 ├── utils/
-│   └── ollama_utils.py           # Ollama API wrapper
+│   └── ollama_utils.py             # Ollama API wrapper
 │
-├── main.py                       # Runs the full pipeline
-├── send_emails.py                # Sends interview invites
+├── main.py                         # Runs the full pipeline
+├── send_emails.py                  # Sends interview invites
 ├── requirements.txt
 ├── .env.example
 └── .gitignore
@@ -111,4 +111,3 @@ python send_emails.py
 
 **Rupam Agrawal**  
 [GitHub](https://github.com/rupamagrawal) · [LinkedIn](https://www.linkedin.com/in/rupam-agrawal-09777b278/)
-```
