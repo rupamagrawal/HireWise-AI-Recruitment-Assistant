@@ -22,37 +22,47 @@ This project processes resumes and job descriptions, evaluates candidate-job fit
 
 ---
 
-## Project Structure
-
-
-.
-├── data/
-│ ├── resumes/
-│ └── job_descriptions.csv
-│
-├── parsed_data/
-│ ├── parsed_resumes.json
-│ └── parsed_jobs.json
-│
-├── output/
-│ ├── match_results.csv
-│ └── shortlisted_candidates.csv
-│
-├── scripts/
-│ ├── extract_pdfs.py
-│ ├── load_jobs.py
-│ └── run_matching.py
-│
-├── utils/
-│ └── ollama_utils.py
-│
-├── main.py
-├── send_emails.py
-├── requirements.txt
-
+Yeah your current structure in the screenshot is messy (flattened + hard to read).
+Here’s a **clean, proper GitHub-standard project structure** you should use 👇
 
 ---
 
+```markdown
+## Project Structure
+
+```
+
+HireWise-AI/
+│
+├── data/
+│   ├── resumes/                      # Raw resume PDFs
+│   └── job_descriptions.csv         # Input job descriptions
+│
+├── parsed_data/
+│   ├── parsed_resumes.json          # Extracted resume text
+│   └── parsed_jobs.json             # Processed job data
+│
+├── output/
+│   ├── match_results.csv            # All candidate-job scores
+│   └── shortlisted_candidates.csv   # Candidates with high scores
+│
+├── scripts/
+│   ├── extract_pdfs.py              # Extract text from resumes
+│   ├── load_jobs.py                 # Process job descriptions
+│   └── run_matching.py              # LLM-based matching logic
+│
+├── utils/
+│   └── ollama_utils.py              # Ollama API interaction
+│
+├── main.py                          # Runs complete pipeline
+├── send_emails.py                   # Sends interview emails
+├── requirements.txt                 # Dependencies
+├── .env                             # Environment variables (not committed)
+├── .gitignore
+└── README.md
+
+```
+```
 ## Setup
 
 ### 1. Install dependencies
