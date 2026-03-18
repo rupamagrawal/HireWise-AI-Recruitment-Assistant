@@ -7,7 +7,7 @@ An end-to-end AI-powered recruitment pipeline that automates resume screening, c
 HireWise AI reads PDF resumes and job descriptions, uses a local LLM (Ollama) to evaluate how well each candidate fits each role, ranks them by match score, and automatically emails interview invitations to shortlisted candidates.
 
 ## Project Structure
-```
+
 ```
 HireWise-AI-Recruitment-Assistant/
 │
