@@ -1,139 +1,114 @@
-# HireWise AI – Resume Matching System
+```markdown
+# HireWise AI – Recruitment Assistant
 
-HireWise AI is a Python-based recruitment assistant that automates resume parsing, job matching, candidate shortlisting, and interview email notifications.
-
----
+An end-to-end AI-powered recruitment pipeline that automates resume screening, candidate scoring, shortlisting, and interview scheduling.
 
 ## Overview
 
-This project processes resumes and job descriptions, evaluates candidate-job fit using an LLM (via Ollama), and generates ranked results along with shortlisted candidates.
+HireWise AI reads PDF resumes and job descriptions, uses a local LLM (Ollama) to evaluate how well each candidate fits each role, ranks them by match score, and automatically emails interview invitations to shortlisted candidates.
 
----
-
-## Features
-
-- Extracts text from PDF resumes
-- Loads and processes job descriptions from CSV
-- Evaluates candidate-job match using LLM-based scoring
-- Generates match results with scores (0–100)
-- Automatically shortlists top candidates
-- Sends interview invitation emails to shortlisted candidates
-- End-to-end pipeline execution
-
----
-
-Yeah your current structure in the screenshot is messy (flattened + hard to read).
-Here’s a **clean, proper GitHub-standard project structure** you should use 👇
-
----
-
-```markdown
 ## Project Structure
 
 ```
-
-HireWise-AI/
+HireWise-AI-Recruitment-Assistant/
 │
 ├── data/
-│   ├── resumes/                      # Raw resume PDFs
-│   └── job_descriptions.csv         # Input job descriptions
+│   ├── resumes/                  # Input resume PDFs
+│   └── job_descriptions.csv      # Input job descriptions
 │
 ├── parsed_data/
-│   ├── parsed_resumes.json          # Extracted resume text
-│   └── parsed_jobs.json             # Processed job data
+│   ├── parsed_resumes.json       # Extracted resume text
+│   └── parsed_jobs.json          # Structured job data
 │
 ├── output/
-│   ├── match_results.csv            # All candidate-job scores
-│   └── shortlisted_candidates.csv   # Candidates with high scores
+│   ├── match_results.csv         # All candidate-job scores
+│   └── shortlisted_candidates.csv
 │
 ├── scripts/
-│   ├── extract_pdfs.py              # Extract text from resumes
-│   ├── load_jobs.py                 # Process job descriptions
-│   └── run_matching.py              # LLM-based matching logic
+│   ├── extract_pdfs.py           # PDF text extraction
+│   ├── load_jobs.py              # Job description processing
+│   └── run_matching.py           # LLM-based scoring logic
 │
 ├── utils/
-│   └── ollama_utils.py              # Ollama API interaction
+│   └── ollama_utils.py           # Ollama API wrapper
 │
-├── main.py                          # Runs complete pipeline
-├── send_emails.py                   # Sends interview emails
-├── requirements.txt                 # Dependencies
-├── .env                             # Environment variables (not committed)
-├── .gitignore
-└── README.md
+├── main.py                       # Runs the full pipeline
+├── send_emails.py                # Sends interview invites
+├── requirements.txt
+├── .env.example
+└── .gitignore
+```
 
-```
-```
+## Tech Stack
+
+- **Python** – Core language
+- **PyMuPDF (fitz)** – PDF parsing
+- **Pandas** – CSV/data processing
+- **Ollama** – Local LLM inference for candidate scoring
+- **SMTP (Gmail)** – Email automation
+- **python-dotenv** – Environment variable management
+
 ## Setup
 
-### 1. Install dependencies
+**1. Install dependencies**
 
 ```bash
 pip install -r requirements.txt
-2. Setup environment variables
+```
 
-Create a .env file:
+**2. Install and run Ollama**
 
+```bash
+ollama run phi
+```
+
+**3. Create a `.env` file**
+
+```env
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=phi
-
 EMAIL_ADDRESS=your_email@gmail.com
 EMAIL_PASSWORD=your_app_password
-3. Run Ollama
-ollama run phi
-Usage
+```
 
-Run the full pipeline:
+## Usage
 
+Run the full pipeline (extract → match → shortlist):
+
+```bash
 python main.py
+```
 
-Send emails to shortlisted candidates:
+Send interview emails to shortlisted candidates:
 
+```bash
 python send_emails.py
-Workflow
+```
 
-Extract resume text from PDFs
+## How It Works
 
-Load and structure job descriptions
+1. Resume PDFs are parsed into raw text using PyMuPDF
+2. Job descriptions are loaded from CSV and structured as JSON
+3. For each resume-job pair, the LLM returns a match score (0–100)
+4. Candidates scoring ≥ 80 are written to `shortlisted_candidates.csv`
+5. Interview invitation emails are sent automatically via Gmail SMTP
 
-Evaluate resume-job match using LLM
+## Output
 
-Assign score (0–100)
+| File                       | Description                                |
+|----------------------------|--------------------------------------------|
+| `output/match_results.csv` | All candidates with their job match scores |
+| `output/shortlisted_candidates.csv` | Candidates with score ≥ 80        |
 
-Store results in CSV
+## Notes
 
-Shortlist candidates with high scores
+- Ollama must be running locally before executing the pipeline
+- Candidate email is extracted from resume text using regex
+- The shortlist threshold (80) can be adjusted in `run_matching.py`
+- Gmail requires an [App Password](https://support.google.com/accounts/answer/185833) for SMTP
 
-Send interview emails
+## Author
 
-Output
-match_results.csv
-Job Title	Candidate Name	Email	Match Score
-shortlisted_candidates.csv
-
-Contains candidates with score ≥ 80
-
-Tech Stack
-
-Python
-
-PyMuPDF
-
-Pandas
-
-Ollama (LLM)
-
-Regex
-
-SMTP (Email)
-
-dotenv
-
-Notes
-
-LLM is used to generate match scores based on job and resume relevance
-
-Email is extracted from resume text using regex
-
-Default shortlist threshold is 80
-
-Ollama must be running locally before executing matching
+**Rupam Agrawal**  
+[GitHub](https://github.com/rupamagrawal) · [LinkedIn](https://www.linkedin.com/in/rupam-agrawal-09777b278/)
+```
