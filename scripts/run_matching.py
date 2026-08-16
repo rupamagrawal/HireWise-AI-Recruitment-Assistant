@@ -6,7 +6,7 @@ import json
 import csv
 import re
 from dotenv import load_dotenv
-from utils.ollama_utils import query_ollama
+from utils.llm_router import get_match_score
 
 load_dotenv()
 
@@ -31,33 +31,9 @@ def extract_score(text):
 
 
 def get_score_from_model(job_description, resume_text):
-    prompt = f"""
-You are a strict AI evaluator.
-
-Given a job and a resume, respond with a SINGLE number from 0 to 100 that represents the match score.
-
-DO NOT respond with explanation, just the number.
-
-Job: {job_description[:200]}
-
-Resume: {resume_text[:200]}
-
-Score:
-"""
-    ollama_response = query_ollama(prompt)
-    print(f"\n🧠 Ollama response:\n{ollama_response}\n")
-
-    if ollama_response:
-        if "sorry" in ollama_response.lower() or "not able" in ollama_response.lower():
-            print("⚠️ Skipping irrelevant response.")
-            return 0
-
-        score = extract_score(ollama_response)
-        print(f"🎯 Parsed Score: {score}")
-        return score
-
-    print("❌ No valid score parsed. Returning 0.")
-    return 0
+    """Route to Groq (primary) or Ollama (fallback) via llm_router."""
+    score = get_match_score(resume_text, job_description)
+    return score
 
 
 def evaluate_applicant_for_job(resume_filename, resume_text, job_title, job_description):

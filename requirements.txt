@@ -3,3 +3,4 @@ python-dotenv
 PyMuPDF
 pandas
 tqdm
+groq
